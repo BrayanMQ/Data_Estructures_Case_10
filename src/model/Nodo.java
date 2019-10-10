@@ -8,8 +8,8 @@ public class Nodo {
     private Sensor sensor;
     private ArrayList<Nodo> listaHijos;
 
-    public Nodo(Sensor sensor) {
-        this.sensor = sensor;
+    public Nodo(Sensor pSensor) {
+        this.sensor = pSensor;
         this.listaHijos = new ArrayList<>();
     }
 
@@ -17,20 +17,15 @@ public class Nodo {
         return sensor;
     }
 
-    public void setSensor(Sensor sensor) {
-        this.sensor = sensor;
+    public void setSensor(Sensor pSensor) {
+        this.sensor = pSensor;
     }
 
     public ArrayList<Nodo> getListaHijos() {
         return listaHijos;
     }
 
-    public void setListaHijos(ArrayList<Nodo> listaHijos) {
-        this.listaHijos = listaHijos;
+    public void setListaHijos(ArrayList<Nodo> pListaHijos) {
+        this.listaHijos = pListaHijos;
     }
-    
-    
-    
-    
-    
 }

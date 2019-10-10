@@ -7,11 +7,11 @@ public class Sensor {
     private double consumo;
     private double consumoActual;
 
-    public Sensor(int id, String nombre, TTipo tipo, double consumo) {
-        this.id = id;
-        this.nombre = nombre;
-        this.tipo = tipo;
-        this.consumo = consumo;
+    public Sensor(int pId, String pNombre, TTipo pTipo, double pConsumo) {
+        this.id = pId;
+        this.nombre = pNombre;
+        this.tipo = pTipo;
+        this.consumo = pConsumo;
         this.consumoActual = 0;
     }
     
@@ -23,42 +23,39 @@ public class Sensor {
         return id;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setId(int pId) {
+        this.id = pId;
     }
 
     public String getNombre() {
         return nombre;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public void setNombre(String pNombre) {
+        this.nombre = pNombre;
     }
 
     public TTipo getTipo() {
         return tipo;
     }
 
-    public void setTipo(TTipo tipo) {
-        this.tipo = tipo;
+    public void setTipo(TTipo pTipo) {
+        this.tipo = pTipo;
     }
 
     public double getConsumo() {
         return consumo;
     }
 
-    public void setConsumo(double consumo) {
-        this.consumo = consumo;
+    public void setConsumo(double pConsumo) {
+        this.consumo = pConsumo;
     }
 
     public double getConsumoActual() {
         return consumoActual;
     }
 
-    public void setConsumoActual(double consumoActual) {
-        this.consumoActual = consumoActual;
+    public void setConsumoActual(double pConsumoActual) {
+        this.consumoActual = pConsumoActual;
     }
-    
-    
-    
 }

@@ -7,7 +7,7 @@ import java.util.ArrayList;
 public class Arbol {
     
     private Nodo raiz;
-    private Nodo resultado;
+    private Nodo nodoEncontrado;
     
     private int tamañoArbol;
     
@@ -17,9 +17,9 @@ public class Arbol {
     private GraphViz graphBuilder = new GraphViz(); 
     private static int nuevoContadorNulo = 0;
 
-    public Arbol(Nodo raiz) {
-        this.raiz = raiz;
-        this.resultado = null;
+    public Arbol(Nodo pRaiz) {
+        this.raiz = pRaiz;
+        this.nodoEncontrado = null;
         this.tamañoArbol = 0;
     }
 
@@ -33,89 +33,87 @@ public class Arbol {
         return raiz;
     }
 
-    public void setRaiz(Nodo raiz) {
-        this.raiz = raiz;
+    public void setRaiz(Nodo pRaiz) {
+        this.raiz = pRaiz;
     }
     
-    public int findTreeNode(Nodo nodo){
-      return nodosVisitados.indexOf(4);
+    public int findTreeNode(Nodo pNodo){
+      return nodosVisitados.indexOf(pNodo);
     }
     
-    private Nodo buscarNodo(Sensor sensor){
-        return (buscarNodo(raiz, sensor));
+    private Nodo buscarNodo(Sensor pSensor){
+        return (buscarNodo(raiz, pSensor));
     }
     
-    private Nodo buscarNodo(Nodo nodo, Sensor sensor){
-        if (nodo == null) {
-            resultado = null;
+    private Nodo buscarNodo(Nodo pNodo, Sensor pSensor){
+        if (pNodo == null) {
+            nodoEncontrado = null;
         }
         
-        if (sensor == nodo.getSensor()) {
-            resultado = nodo;
+        if (pSensor == pNodo.getSensor()) {
+            nodoEncontrado = pNodo;
         }
         
-        for (Nodo nodoActual : nodo.getListaHijos()) {
-            buscarNodo(nodoActual, nodo.getSensor());
+        for (Nodo nodoActual : pNodo.getListaHijos()) {
+            buscarNodo(nodoActual, pNodo.getSensor());
         }
         
-        return resultado;
+        return nodoEncontrado;
     }
     
-    public void insertarNodo(Sensor sensor, Sensor padre){
-        raiz = insertarNodo(raiz, sensor, padre);
+    public void insertarNodo(Sensor pSensor, Sensor pPadre){
+        raiz = insertarNodo(raiz, pSensor, pPadre);
     }
     
-    private Nodo insertarNodo(Nodo nodo, Sensor sensor, Sensor padre){
-        if (nodo == null) {
-            nodo = new Nodo(sensor);
+    private Nodo insertarNodo(Nodo pNodo, Sensor pSensor, Sensor pPadre){
+        if (pNodo == null) {
+            pNodo = new Nodo(pSensor);
         }else{
-            Nodo nodoAInsertar = buscarNodo(padre);
-            if(padre != null)          
-                nodoAInsertar.getListaHijos().add(new Nodo(sensor));
+            Nodo nodoAInsertar = buscarNodo(pPadre);
+            if(pPadre != null)          
+                nodoAInsertar.getListaHijos().add(new Nodo(pSensor));
             else{
-                nodo.getListaHijos().add(new Nodo(sensor));
+                pNodo.getListaHijos().add(new Nodo(pSensor));
             }
-                
         }
-        return nodo;
+        return pNodo;
     }
     
-    public int getSize(Nodo nodo, Arbol arbol){
-        if(nodo != null){
-            for(Nodo nodoActual: nodo.getListaHijos()){
+    public int getSize(Nodo pNodo, Arbol pArbol){
+        if(pNodo != null){
+            for(Nodo nodoActual: pNodo.getListaHijos()){
                 this.tamañoArbol++;
                 System.out.println(nodoActual.getSensor().getId());
                 System.out.println(nodoActual.getSensor().getNombre());
-                getSize(nodoActual, arbol); 
+                getSize(nodoActual, pArbol); 
             }                  
         }
-        
         return tamañoArbol;
     }
     
-    public Nodo recorrerHijos(Nodo nodo, int id){
-        for (Nodo nodoActual: nodo.getListaHijos()){
-            if (nodoActual.getSensor().getId() == id) {
+    public Nodo recorrerHijos(Nodo pNodo, int pId){
+        for (Nodo nodoActual: pNodo.getListaHijos()){
+            if (nodoActual.getSensor().getId() == pId) {
                 return nodoActual;
             }
         }
         return null;
     }
     
-    public void agregarUnaListaNodosAPadre(ArrayList<Nodo> listaHijos, Nodo padre){
-        for (Nodo nodoAgregar: listaHijos){
-            padre.getListaHijos().add(nodoAgregar);
+    public void agregarUnaListaNodosAPadre(ArrayList<Nodo> pListaHijos, Nodo pPadre){
+        for (Nodo nodoAgregar: pListaHijos){
+            pPadre.getListaHijos().add(nodoAgregar);
         }
     }
     
-    public void eliminarNodo(Nodo padre, Nodo nodoEliminar){
-        padre.getListaHijos().remove(nodoEliminar);
+    public void eliminarNodo(Nodo pPadre, Nodo pNodoEliminar){
+        pPadre.getListaHijos().remove(pNodoEliminar);
     }
     
-    public boolean removerSensor(Nodo raiz, int id){
-        for (Nodo nodoActual: raiz.getListaHijos()) {
+    public boolean removerSensor(Nodo pRaiz, int pId){
+        for (Nodo nodoActual: pRaiz.getListaHijos()) {
             Nodo padre = nodoActual;
-            Nodo nodoEliminar = recorrerHijos(nodoActual, id);
+            Nodo nodoEliminar = recorrerHijos(nodoActual, pId);
             if (nodoEliminar != null) {
                 ArrayList<Nodo> listaHijos = nodoEliminar.getListaHijos();
                 agregarUnaListaNodosAPadre(listaHijos, padre);
@@ -127,33 +125,33 @@ public class Arbol {
     }
     
     //Lo que se necesita para graficar
-    public void findTreeNodes(Nodo nodo, Arbol arbol){
-        if (nodo != null) {
+    public void findTreeNodes(Nodo pNodo, Arbol pArbol){
+        if (pNodo != null) {
             String valorNulo = "null";
-            graphBuilder.addln(String.format("%d [ label=<%d> ]", contadorNodos, nodo.getSensor().getId()));
-            nodosVisitados.add(nodo.getSensor().getId());
+            graphBuilder.addln(String.format("%d [ label=<%d> ]", contadorNodos, pNodo.getSensor().getId()));
+            nodosVisitados.add(pNodo.getSensor().getId());
             contadorNodos++;
             
-            for(Nodo nodoActual: nodo.getListaHijos()){
+            for(Nodo nodoActual: pNodo.getListaHijos()){
                 if (nodoActual == null) {
                     valorNulo = "null" + contadorNulo;
                     contadorNulo++;
                     graphBuilder.addln(String.format("%s[shape=point]", valorNulo));
                 }
-                findTreeNodes(nodoActual, arbol);
+                findTreeNodes(nodoActual, pArbol);
             }
         }
     } 
     
-    public void asignFatherToSon(Nodo nodo, Arbol arbol){
-        if (nodo != null) {
-            for(Nodo nodoActual: nodo.getListaHijos()){
+    public void asignFatherToSon(Nodo pNodo, Arbol pArbol){
+        if (pNodo != null) {
+            for(Nodo nodoActual: pNodo.getListaHijos()){
                 if (nodoActual != null) {
-                    graphBuilder.addln(String.format("%d -> %d", findTreeNode(nodo), findTreeNode(nodoActual)));
+                    graphBuilder.addln(String.format("%d -> %d", findTreeNode(pNodo), findTreeNode(nodoActual)));
                 }else{
-                    graphBuilder.addln(String.format("%d -> %s", findTreeNode(nodo), "null" + nuevoContadorNulo++));
+                    graphBuilder.addln(String.format("%d -> %s", findTreeNode(pNodo), "null" + nuevoContadorNulo++));
                 }
-                asignFatherToSon(nodoActual, arbol);
+                asignFatherToSon(nodoActual, pArbol);
             }
         }
     }
@@ -167,10 +165,10 @@ public class Arbol {
         graphBuilder.writeGraphToFile(graphBuilder.getGraph(graphBuilder.getDotSource(), type), out);
     }
     
-    public void graphArbol(Arbol arbol){
+    public void graphArbol(Arbol pArbol){
         graphBuilder.addln("ordering = out");
-        findTreeNodes(raiz, arbol);
-        asignFatherToSon(raiz, arbol);
+        findTreeNodes(raiz, pArbol);
+        asignFatherToSon(raiz, pArbol);
         finalizarGraph();
     }
 }
