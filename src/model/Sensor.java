@@ -3,9 +3,18 @@ package model;
 public class Sensor {
     private int id;
     private String nombre;
-    private TLocalidad tipo;
+    private TTipo tipo;
     private double consumo;
     private double consumoActual;
+
+    public Sensor(int id, String nombre, TTipo tipo, double consumo) {
+        this.id = id;
+        this.nombre = nombre;
+        this.tipo = tipo;
+        this.consumo = consumo;
+        this.consumoActual = 0;
+    }
+    
 
     public Sensor() {
     }
@@ -26,11 +35,11 @@ public class Sensor {
         this.nombre = nombre;
     }
 
-    public TLocalidad getTipo() {
+    public TTipo getTipo() {
         return tipo;
     }
 
-    public void setTipo(TLocalidad tipo) {
+    public void setTipo(TTipo tipo) {
         this.tipo = tipo;
     }
 
