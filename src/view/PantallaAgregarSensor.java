@@ -5,13 +5,25 @@
  */
 package view;
 
+import controller.PantallaAgregarSensorController;
+import model.Arbol;
+import model.SplayTree;
+
 public class PantallaAgregarSensor extends javax.swing.JFrame {
 
     /**
      * Creates new form PantallaAgregarSensor
      */
-    public PantallaAgregarSensor() {
+    
+    private static Arbol arbol;
+    private static SplayTree splayTree;
+    private PantallaAgregarSensorController pantallaAgregarSensorController;
+    
+    public PantallaAgregarSensor(Arbol pArbol, SplayTree pSplayTree) {
         initComponents();
+        this.arbol = pArbol;
+        this.splayTree = pSplayTree;
+        this.pantallaAgregarSensorController = new PantallaAgregarSensorController();
     }
 
     /**
@@ -29,7 +41,7 @@ public class PantallaAgregarSensor extends javax.swing.JFrame {
         lbl_Distrito = new javax.swing.JLabel();
         lbl_Barrio = new javax.swing.JLabel();
         lbl_Consumo = new javax.swing.JLabel();
-        txt_I = new javax.swing.JTextField();
+        txt_Id = new javax.swing.JTextField();
         txt_Canton = new javax.swing.JTextField();
         txt_Distrito = new javax.swing.JTextField();
         txt_Barrio = new javax.swing.JTextField();
@@ -53,6 +65,11 @@ public class PantallaAgregarSensor extends javax.swing.JFrame {
         lbl_Consumo.setText("Consumo:");
 
         btn_AgregarAPlanta.setText("Agregar a la planta");
+        btn_AgregarAPlanta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_AgregarAPlantaActionPerformed(evt);
+            }
+        });
 
         btn_ConectarSensorExistente.setText("Conectar con un sensor existente");
 
@@ -85,7 +102,7 @@ public class PantallaAgregarSensor extends javax.swing.JFrame {
                                 .addComponent(txt_Barrio, javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(txt_Distrito, javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(txt_Canton, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(txt_I, javax.swing.GroupLayout.Alignment.LEADING)))
+                                .addComponent(txt_Id, javax.swing.GroupLayout.Alignment.LEADING)))
                         .addGap(98, 98, 98))))
         );
         layout.setVerticalGroup(
@@ -96,7 +113,7 @@ public class PantallaAgregarSensor extends javax.swing.JFrame {
                 .addGap(25, 25, 25)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lbl_Id)
-                    .addComponent(txt_I, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txt_Id, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lbl_Canton)
@@ -122,6 +139,15 @@ public class PantallaAgregarSensor extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btn_AgregarAPlantaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_AgregarAPlantaActionPerformed
+        
+        this.pantallaAgregarSensorController.agregarSensor(this.arbol, this.splayTree, Integer.parseInt(this.txt_Id.getText()),
+        this.txt_Canton.getText(),
+        this.txt_Distrito.getText(),
+        this.txt_Barrio.getText(),
+        Double.parseDouble(this.txt_Consumo.getText()));
+    }//GEN-LAST:event_btn_AgregarAPlantaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -153,7 +179,7 @@ public class PantallaAgregarSensor extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new PantallaAgregarSensor().setVisible(true);
+                new PantallaAgregarSensor(arbol, splayTree).setVisible(true);
             }
         });
     }
@@ -171,6 +197,6 @@ public class PantallaAgregarSensor extends javax.swing.JFrame {
     private javax.swing.JTextField txt_Canton;
     private javax.swing.JTextField txt_Consumo;
     private javax.swing.JTextField txt_Distrito;
-    private javax.swing.JTextField txt_I;
+    private javax.swing.JTextField txt_Id;
     // End of variables declaration//GEN-END:variables
 }

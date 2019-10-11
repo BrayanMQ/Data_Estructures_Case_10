@@ -28,28 +28,28 @@ public class SplayTree {
      /** Función para insertar un elemento */
      public void insert(Nodo pElement)
      {
-         SplayNodo z = root;
-         SplayNodo p = null;
-         while (z != null)
+         SplayNodo raiz = root;
+         SplayNodo nodoTemp = null;
+         while (raiz != null)
          {
-             p = z;
+             nodoTemp = raiz;
              if (pElement.getSensor().getNombre()
-                     .compareTo(p.getElement().getSensor().getNombre())>0)
-                 z = z.getRight();
+                     .compareTo(nodoTemp.getElement().getSensor().getNombre())>0)
+                 raiz = raiz.getRight();
              else
-                 z = z.getLeft();
+                 raiz = raiz.getLeft();
          }
-         z = new SplayNodo();
-         z.setElement(pElement);
-         z.setParent(p);
-         if (p == null)
-             root = z;
+         raiz = new SplayNodo();
+         raiz.setElement(pElement);
+         raiz.setParent(nodoTemp);
+         if (nodoTemp == null)
+             root = raiz;
          else if (pElement.getSensor().getNombre()
-                 .compareTo(p.getElement().getSensor().getNombre())>0)
-                 p.setRight(z);
+                 .compareTo(nodoTemp.getElement().getSensor().getNombre())>0)
+                 nodoTemp.setRight(raiz);
              else
-                 p.setLeft(z);
-         Splay(z);
+                 nodoTemp.setLeft(raiz);
+         Splay(raiz);
          count++;
      }
      
@@ -207,20 +207,20 @@ public class SplayTree {
      private SplayNodo findNode(Nodo pNodo)
      {
     	 SplayNodo PrevNode = null;
-         SplayNodo z = root;
-         while (z != null)
+         SplayNodo raiz = root;
+         while (raiz != null)
          {
-        	 PrevNode = z;
+        	 PrevNode = raiz;
              if (pNodo.getSensor().getNombre()
-                     .compareTo(z.getElement().getSensor().getNombre()) > 0)
-                 z = z.getRight();
+                     .compareTo(raiz.getElement().getSensor().getNombre()) > 0)
+                 raiz = raiz.getRight();
              else if (pNodo.getSensor().getNombre()
-                     .compareTo(z.getElement().getSensor().getNombre()) < 0)
-                 z = z.getLeft();
+                     .compareTo(raiz.getElement().getSensor().getNombre()) < 0)
+                 raiz = raiz.getLeft();
              else if (pNodo.getSensor().getNombre()
-                     .compareTo(z.getElement().getSensor().getNombre()) == 0) {
-                 Splay(z);
-                 return z;
+                     .compareTo(raiz.getElement().getSensor().getNombre()) == 0) {
+                 Splay(raiz);
+                 return raiz;
              }
  
          }
@@ -242,7 +242,7 @@ public class SplayTree {
          if (pNodo != null)
          {
              inorder(pNodo.getLeft());
-             System.out.print(pNodo.getElement() +" ");
+             System.out.print(pNodo.getElement().getSensor().getNombre() +" ");
              inorder(pNodo.getRight());
          }
      }

@@ -41,7 +41,7 @@ public class Arbol {
       return nodosVisitados.indexOf(pNodo);
     }
     
-    private Nodo buscarNodo(int pId){
+    public Nodo buscarNodo(int pId){
         nodoEncontrado = null;
         return (buscarNodo(raiz, pId));
     }
@@ -87,25 +87,6 @@ public class Arbol {
         return tamañoArbol;
     }
     
-    public Nodo recorrerHijos(Nodo pNodo, int pId){
-        for (Nodo nodoActual: pNodo.getListaHijos()){
-            if (nodoActual.getSensor().getId() == pId) {
-                return nodoActual;
-            }
-        }
-        return null;
-    }
-    
-    public void agregarUnaListaNodosAPadre(ArrayList<Nodo> pListaHijos, Nodo pPadre){
-        for (Nodo nodoAgregar: pListaHijos){
-            pPadre.getListaHijos().add(nodoAgregar);
-        }
-    }
-    
-    public void eliminarNodo(Nodo pPadre, Nodo pNodoEliminar){
-        pPadre.getListaHijos().remove(pNodoEliminar);
-    }
-    
     public boolean removerSensor(int pId){
         Nodo nodoEliminar = buscarNodo(pId);
             
@@ -122,6 +103,24 @@ public class Arbol {
 
         }
         return false;
+    }
+    
+    public Nodo buscarNodoPorNombre(String pNombre){
+        nodoEncontrado = null;
+        return (buscarNodoPorNombre(raiz, pNombre));
+    }
+    
+    private Nodo buscarNodoPorNombre(Nodo pRaiz, String pNombre){
+        
+        if (pNombre.equals(pRaiz.getSensor().getNombre())) {
+            nodoEncontrado = pRaiz;
+        }
+        
+        for (Nodo nodoActual : pRaiz.getListaHijos()) {
+            buscarNodoPorNombre(nodoActual, pNombre);
+        }
+        
+        return nodoEncontrado;
     }
     
     //Lo que se necesita para graficar

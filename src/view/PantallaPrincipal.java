@@ -5,13 +5,25 @@
  */
 package view;
 
-public class PantallaPrincipal extends javax.swing.JFrame {
+import controller.PantallaAgregarSensorController;
+import model.Arbol;
+import model.SplayTree;
 
+public class PantallaPrincipal extends javax.swing.JFrame {
     /**
      * Creates new form PantallaPrincipal
+     * @param pArbol
+     * @param pSplayTree
      */
-    public PantallaPrincipal() {
+    
+    private static Arbol arbol;
+    private static SplayTree splayTree;
+    
+    public PantallaPrincipal(Arbol pArbol, SplayTree pSplayTree) {
         initComponents();
+        this.arbol = pArbol;
+        this.splayTree = pSplayTree;
+        
     }
 
     /**
@@ -40,6 +52,11 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         btn_RemoverSensor.setText("Remover sensor");
 
         btn_AgregarSensor.setText("Agregar sensor");
+        btn_AgregarSensor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_AgregarSensorActionPerformed(evt);
+            }
+        });
 
         btn_VerEstadoSensores.setText("Ver estado de los sensores");
 
@@ -91,6 +108,12 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btn_AgregarSensorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_AgregarSensorActionPerformed
+        this.dispose();
+        PantallaAgregarSensor panallaAgregarSensor = new PantallaAgregarSensor(arbol, splayTree);
+        panallaAgregarSensor.setVisible(true);
+    }//GEN-LAST:event_btn_AgregarSensorActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -121,7 +144,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new PantallaPrincipal().setVisible(true);
+                new PantallaPrincipal(arbol, splayTree).setVisible(true);
             }
         });
     }
